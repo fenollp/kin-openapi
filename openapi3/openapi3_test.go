@@ -272,8 +272,8 @@ func spec() *T {
 			Title:   "MyAPI",
 			Version: "0.1",
 		},
-		Paths: Paths{
-			"/hello": &PathItem{
+		Paths: NewPaths(
+			WithPath("/hello", &PathItem{
 				Post: &Operation{
 					Parameters: Parameters{
 						{
@@ -298,8 +298,8 @@ func spec() *T {
 						Value: parameter,
 					},
 				},
-			},
-		},
+			}),
+		),
 		Components: &Components{
 			Parameters: ParametersMap{
 				"someParameter": {

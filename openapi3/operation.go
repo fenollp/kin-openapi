@@ -81,8 +81,8 @@ func (operation Operation) MarshalJSON() ([]byte, error) {
 		m["requestBody"] = x
 	}
 	m["responses"] = operation.Responses
-	if x := operation.Callbacks; len(x) != 0 {
-		m["callbacks"] = x
+	if x := operation.Callbacks; x.Len() != 0 {
+		m["callbacks"] = x.om
 	}
 	if x := operation.Deprecated; x {
 		m["deprecated"] = x

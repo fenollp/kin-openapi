@@ -4,6 +4,8 @@ import (
 	"context"
 	"path/filepath"
 	"strings"
+
+	orderedmap "github.com/wk8/go-ordered-map/v2"
 )
 
 type RefNameResolver func(string) string
@@ -244,10 +246,10 @@ func (doc *T) addCallbackToSpec(c *CallbackRef, refNameResolver RefNameResolver,
 		doc.Components = &Components{}
 	}
 	if doc.Components.Callbacks == nil {
-		doc.Components.Callbacks = make(Callbacks)
+		doc.Components.Callbacks = &Callbacks{}
 	}
 	c.Ref = "#/components/callbacks/" + name
-	doc.Components.Callbacks[name] = &CallbackRef{Value: c.Value}
+	doc.Components.Callbacks.Set(name, &CallbackRef{Value: c.Value})
 	return true
 }
 
@@ -336,8 +338,9 @@ func (doc *T) derefRequestBody(r RequestBody, refNameResolver RefNameResolver, p
 	doc.derefContent(r.Content, refNameResolver, parentIsExternal)
 }
 
-func (doc *T) derefPaths(paths map[string]*PathItem, refNameResolver RefNameResolver, parentIsExternal bool) {
-	for _, ops := range paths {
+func (doc *T) derefPaths(paths *orderedmap.OrderedMap[string, *PathItem], refNameResolver RefNameResolver, parentIsExternal bool) {
+	for pair := paths.Oldest(); pair != nil; pair = pair.Next() {
+		ops := pair.Value
 		pathIsExternal := isExternalRef(ops.Ref, parentIsExternal)
 		// inline full operations
 		ops.Ref = ""
@@ -351,10 +354,12 @@ func (doc *T) derefPaths(paths map[string]*PathItem, refNameResolver RefNameReso
 			if op.RequestBody != nil && op.RequestBody.Value != nil {
 				doc.derefRequestBody(*op.RequestBody.Value, refNameResolver, pathIsExternal || isExternal)
 			}
-			for _, cb := range op.Callbacks {
+			for pair := op.Callbacks.Iter(); pair != nil; pair = pair.Next() {
+				cb := pair.Value
 				isExternal := doc.addCallbackToSpec(cb, refNameResolver, pathIsExternal)
 				if cb.Value != nil {
-					doc.derefPaths(*cb.Value, refNameResolver, pathIsExternal || isExternal)
+					cbValue := (*orderedmap.OrderedMap[string, *PathItem])(cb.Value.om)
+					doc.derefPaths(cbValue, refNameResolver, pathIsExternal || isExternal)
 				}
 			}
 			doc.derefResponses(op.Responses, refNameResolver, pathIsExternal)
@@ -419,14 +424,17 @@ func (doc *T) InternalizeRefs(ctx context.Context, refNameResolver func(ref stri
 		}
 		doc.derefExamples(components.Examples, refNameResolver, false)
 		doc.derefLinks(components.Links, refNameResolver, false)
-		for _, cb := range components.Callbacks {
+
+		for pair := components.Callbacks.Iter(); pair != nil; pair = pair.Next() {
+			cb := pair.Value
 			isExternal := doc.addCallbackToSpec(cb, refNameResolver, false)
 			if cb != nil && cb.Value != nil {
 				cb.Ref = "" // always dereference the top level
-				doc.derefPaths(*cb.Value, refNameResolver, isExternal)
+				cbValue := (*orderedmap.OrderedMap[string, *PathItem])(cb.Value.om)
+				doc.derefPaths(cbValue, refNameResolver, isExternal)
 			}
 		}
 	}
 
-	doc.derefPaths(doc.Paths, refNameResolver, false)
+	doc.derefPaths(doc.Paths.om, refNameResolver, false)
 }

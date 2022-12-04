@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	orderedmap "github.com/wk8/go-ordered-map/v2"
+
 	"github.com/getkin/kin-openapi/openapi2"
 	"github.com/getkin/kin-openapi/openapi3"
 )
@@ -70,16 +72,16 @@ func ToV3WithLoader(doc2 *openapi2.T, loader *openapi3.Loader, location *url.URL
 		}
 	}
 
-	if paths := doc2.Paths; len(paths) != 0 {
-		doc3Paths := make(map[string]*openapi3.PathItem, len(paths))
-		for path, pathItem := range paths {
+	if paths := doc2.Paths; paths.Len() != 0 {
+		doc3.Paths = openapi3.NewPathsWithCapacity(paths.Len())
+		for pair := paths.Iter(); pair != nil; pair = pair.Next() {
+			path, pathItem := pair.Key, pair.Value
 			r, err := ToV3PathItem(doc2, doc3.Components, pathItem, doc2.Consumes)
 			if err != nil {
 				return nil, err
 			}
-			doc3Paths[path] = r
+			doc3.Paths.Set(path, r)
 		}
-		doc3.Paths = doc3Paths
 	}
 
 	if responses := doc2.Responses; len(responses) != 0 {
@@ -549,9 +551,9 @@ func ToV3SecurityScheme(securityScheme *openapi2.SecurityScheme) (*openapi3.Secu
 		result.Type = "oauth2"
 		flows := &openapi3.OAuthFlows{}
 		result.Flows = flows
-		scopesMap := make(map[string]string)
+		scopesMap := orderedmap.New[string, string](len(securityScheme.Scopes))
 		for scope, desc := range securityScheme.Scopes {
-			scopesMap[scope] = desc
+			scopesMap.Set(scope, desc)
 		}
 		flow := &openapi3.OAuthFlow{
 			AuthorizationURL: securityScheme.AuthorizationURL,
@@ -620,7 +622,8 @@ func FromV3(doc3 *openapi3.T) (*openapi2.T, error) {
 	if isHTTP {
 		doc2.Schemes = append(doc2.Schemes, "http")
 	}
-	for path, pathItem := range doc3.Paths {
+	for pair := doc3.Paths.Iter(); pair != nil; pair = pair.Next() {
+		path, pathItem := pair.Key, pair.Value
 		if pathItem == nil {
 			continue
 		}
@@ -645,7 +648,7 @@ func FromV3(doc3 *openapi3.T) (*openapi2.T, error) {
 			params = append(params, p)
 		}
 		sort.Sort(params)
-		doc2.Paths[path].Parameters = params
+		doc2.Paths.Value(path).Parameters = params
 	}
 
 	for name, param := range doc3.Components.Parameters {
@@ -1164,9 +1167,9 @@ func FromV3SecurityScheme(doc3 *openapi3.T, ref *openapi3.SecuritySchemeRef) (*o
 				return nil, nil
 			}
 
-			result.Scopes = make(map[string]string, len(flow.Scopes))
-			for scope, desc := range flow.Scopes {
-				result.Scopes[scope] = desc
+			result.Scopes = make(map[string]string, flow.Scopes.Len())
+			for pair := flow.Scopes.Oldest(); pair != nil; pair = pair.Next() {
+				result.Scopes[pair.Key] = pair.Value
 			}
 		}
 	default:
@@ -1192,12 +1195,12 @@ func stripNonExtensions(extensions map[string]interface{}) map[string]interface{
 
 func addPathExtensions(doc2 *openapi2.T, path string, extensions map[string]interface{}) {
 	if doc2.Paths == nil {
-		doc2.Paths = make(map[string]*openapi2.PathItem)
+		doc2.Paths = openapi2.NewPaths()
 	}
-	pathItem := doc2.Paths[path]
+	pathItem := doc2.Paths.Value(path)
 	if pathItem == nil {
 		pathItem = &openapi2.PathItem{}
-		doc2.Paths[path] = pathItem
+		doc2.Paths.Set(path, pathItem)
 	}
 	pathItem.Extensions = extensions
 }

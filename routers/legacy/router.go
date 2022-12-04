@@ -64,7 +64,8 @@ func NewRouter(doc *openapi3.T, opts ...openapi3.ValidationOption) (routers.Rout
 	}
 	router := &Router{doc: doc}
 	root := router.node()
-	for path, pathItem := range doc.Paths {
+	for pair := doc.Paths.Iter(); pair != nil; pair = pair.Next() {
+		path, pathItem := pair.Key, pair.Value
 		for method, operation := range pathItem.Operations() {
 			method = strings.ToUpper(method)
 			if err := root.Add(method+" "+path, &routers.Route{
@@ -143,7 +144,7 @@ func (router *Router) FindRoute(req *http.Request) (*routers.Route, map[string]s
 		route, _ = node.Value.(*routers.Route)
 	}
 	if route == nil {
-		pathItem := doc.Paths[remainingPath]
+		pathItem := doc.Paths.Value(remainingPath)
 		if pathItem == nil {
 			return nil, nil, &routers.RouteError{Reason: routers.ErrPathNotFound.Error()}
 		}

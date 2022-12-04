@@ -20,7 +20,7 @@ type Components struct {
 	SecuritySchemes SecuritySchemes `json:"securitySchemes,omitempty" yaml:"securitySchemes,omitempty"`
 	Examples        Examples        `json:"examples,omitempty" yaml:"examples,omitempty"`
 	Links           Links           `json:"links,omitempty" yaml:"links,omitempty"`
-	Callbacks       Callbacks       `json:"callbacks,omitempty" yaml:"callbacks,omitempty"`
+	Callbacks       *Callbacks      `json:"callbacks,omitempty" yaml:"callbacks,omitempty"`
 }
 
 func NewComponents() Components {
@@ -57,8 +57,8 @@ func (components Components) MarshalJSON() ([]byte, error) {
 	if x := components.Links; len(x) != 0 {
 		m["links"] = x
 	}
-	if x := components.Callbacks; len(x) != 0 {
-		m["callbacks"] = x
+	if x := components.Callbacks; x.Len() != 0 {
+		m["callbacks"] = x.om
 	}
 	return json.Marshal(m)
 }
@@ -208,13 +208,8 @@ func (components *Components) Validate(ctx context.Context, opts ...ValidationOp
 		}
 	}
 
-	callbacks := make([]string, 0, len(components.Callbacks))
-	for name := range components.Callbacks {
-		callbacks = append(callbacks, name)
-	}
-	sort.Strings(callbacks)
-	for _, k := range callbacks {
-		v := components.Callbacks[k]
+	for pair := components.Callbacks.Iter(); pair != nil; pair = pair.Next() {
+		k, v := pair.Key, pair.Value
 		if err = ValidateIdentifier(k); err != nil {
 			return fmt.Errorf("callback %q: %w", k, err)
 		}

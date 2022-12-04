@@ -18,7 +18,7 @@ type T struct {
 	Produces            []string                       `json:"produces,omitempty" yaml:"produces,omitempty"`
 	Host                string                         `json:"host,omitempty" yaml:"host,omitempty"`
 	BasePath            string                         `json:"basePath,omitempty" yaml:"basePath,omitempty"`
-	Paths               map[string]*PathItem           `json:"paths,omitempty" yaml:"paths,omitempty"`
+	Paths               *Paths                         `json:"paths,omitempty" yaml:"paths,omitempty"`
 	Definitions         map[string]*openapi3.SchemaRef `json:"definitions,omitempty" yaml:"definitions,omitempty"`
 	Parameters          map[string]*Parameter          `json:"parameters,omitempty" yaml:"parameters,omitempty"`
 	Responses           map[string]*Response           `json:"responses,omitempty" yaml:"responses,omitempty"`
@@ -53,8 +53,8 @@ func (doc T) MarshalJSON() ([]byte, error) {
 	if x := doc.BasePath; x != "" {
 		m["basePath"] = x
 	}
-	if x := doc.Paths; len(x) != 0 {
-		m["paths"] = x
+	if x := doc.Paths; x.Len() != 0 {
+		m["paths"] = x.om
 	}
 	if x := doc.Definitions; len(x) != 0 {
 		m["definitions"] = x
@@ -106,12 +106,12 @@ func (doc *T) UnmarshalJSON(data []byte) error {
 
 func (doc *T) AddOperation(path string, method string, operation *Operation) {
 	if doc.Paths == nil {
-		doc.Paths = make(map[string]*PathItem)
+		doc.Paths = NewPaths()
 	}
-	pathItem := doc.Paths[path]
+	pathItem := doc.Paths.Value(path)
 	if pathItem == nil {
 		pathItem = &PathItem{}
-		doc.Paths[path] = pathItem
+		doc.Paths.Set(path, pathItem)
 	}
 	pathItem.SetOperation(method, operation)
 }

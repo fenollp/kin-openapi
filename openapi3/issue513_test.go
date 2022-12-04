@@ -87,7 +87,10 @@ components:
 	sl := NewLoader()
 	doc, err := sl.LoadFromData([]byte(spec))
 	require.NoError(t, err)
-	require.Contains(t, doc.Paths["/v1/operation"].Delete.Responses["default"].Value.Extensions, `x-my-extension`)
+	require.Contains(t, doc.Paths.Value("/v1/operation").
+		Delete.
+		Responses["default"].Value.
+		Extensions, `x-my-extension`)
 	err = doc.Validate(sl.Context)
 	require.ErrorContains(t, err, `extra sibling fields: [schema]`)
 }
@@ -126,48 +129,13 @@ components:
           type: string
 `[1:]
 	sl := NewLoader()
+
 	doc, err := sl.LoadFromData([]byte(spec))
 	require.NoError(t, err)
+
 	err = doc.Validate(sl.Context)
 	require.ErrorContains(t, err, `extra sibling fields: [description]`)
-}
 
-func TestIssue513KOMixesRefAlongWithOtherFieldsAllowed(t *testing.T) {
-	spec := `
-openapi: "3.0.3"
-info:
-  title: 'My app'
-  version: 1.0.0
-  description: 'An API'
-
-paths:
-  /v1/operation:
-    delete:
-      summary: Delete something
-      responses:
-        200:
-          description: A sibling field that the spec says is ignored
-          $ref: '#/components/responses/SomeResponseBody'
-components:
-  responses:
-    SomeResponseBody:
-      description: Success
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    Error:
-      type: object
-      description: An error response body.
-      properties:
-        message:
-          description: A detailed message describing the error.
-          type: string
-`[1:]
-	sl := NewLoader()
-	doc, err := sl.LoadFromData([]byte(spec))
-	require.NoError(t, err)
 	err = doc.Validate(sl.Context, AllowExtraSiblingFields("description"))
 	require.NoError(t, err)
 }

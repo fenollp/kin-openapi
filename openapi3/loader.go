@@ -247,7 +247,8 @@ func (loader *Loader) ResolveRefsIn(doc *T, location *url.URL) (err error) {
 			}
 		}
 
-		for _, component := range components.Callbacks {
+		for pair := components.Callbacks.Iter(); pair != nil; pair = pair.Next() {
+			component := pair.Value
 			if err = loader.resolveCallbackRef(doc, component, location); err != nil {
 				return
 			}
@@ -255,7 +256,8 @@ func (loader *Loader) ResolveRefsIn(doc *T, location *url.URL) (err error) {
 	}
 
 	// Visit all operations
-	for _, pathItem := range doc.Paths {
+	for pair := doc.Paths.Iter(); pair != nil; pair = pair.Next() {
+		pathItem := pair.Value
 		if pathItem == nil {
 			continue
 		}
@@ -935,8 +937,8 @@ func (loader *Loader) resolveCallbackRef(doc *T, component *CallbackRef, documen
 		return nil
 	}
 
-	for _, pathItem := range *value {
-		if err = loader.resolvePathItemRef(doc, pathItem, documentPath); err != nil {
+	for pair := value.Iter(); pair != nil; pair = pair.Next() {
+		pathItem := pair.Value
 			return err
 		}
 	}
@@ -1025,7 +1027,8 @@ func (loader *Loader) resolvePathItemRef(doc *T, pathItem *PathItem, documentPat
 				return
 			}
 		}
-		for _, callback := range operation.Callbacks {
+		for pair := operation.Callbacks.Iter(); pair != nil; pair = pair.Next() {
+			callback := pair.Value
 			if err = loader.resolveCallbackRef(doc, callback, documentPath); err != nil {
 				return
 			}

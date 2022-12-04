@@ -1,6 +1,3 @@
-//go:build go1.16
-// +build go1.16
-
 package openapi3_test
 
 import (
@@ -30,6 +27,6 @@ func Example() {
 		panic(err)
 	}
 
-	fmt.Println(doc.Paths["/foo"].Get.Responses["200"].Value.Content["application/json"].Schema.Value.Properties["foo2"].Value.Properties["foo"].Value.Properties["bar"].Value.Type)
+	fmt.Println(doc.Paths.Value("/foo").Get.Responses["200"].Value.Content["application/json"].Schema.Value.Properties["foo2"].Value.Properties["foo"].Value.Properties["bar"].Value.Type)
 	// Output: string
 }
