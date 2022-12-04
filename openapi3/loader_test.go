@@ -62,6 +62,7 @@ paths:
 	require.Equal(t, 2, len(doc.Components.Schemas))
 	require.Equal(t, 1, doc.Paths.Len())
 	require.Equal(t, "unexpected error", *doc.Paths.Value("/items").Put.Responses.Default().Value.Description)
+
 	err = doc.Validate(loader.Context)
 	require.NoError(t, err)
 }

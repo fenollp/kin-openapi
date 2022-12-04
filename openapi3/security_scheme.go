@@ -364,8 +364,8 @@ func (flow *OAuthFlow) Validate(ctx context.Context, opts ...ValidationOption) e
 		}
 	}
 
-	if flow.Scopes == nil {
-		return errors.New("field 'scopes' is missing")
+	if v := flow.Scopes; v == nil || v.Len() == 0 {
+		return errors.New("field 'scopes' is empty or missing")
 	}
 
 	return validateExtensions(ctx, flow.Extensions)
