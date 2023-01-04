@@ -461,12 +461,43 @@ func drillIntoField(cursor interface{}, fieldName string) (interface{}, error) {
 					return enc, nil
 				}
 			}
+
+			if v := omdriller(val, fieldName); v != nil {
+				return v, nil
+			}
 		}
 		return nil, fmt.Errorf("struct field %q not found", fieldName)
 
 	default:
 		return nil, errors.New("not a map, slice nor struct")
 	}
+}
+
+func omdriller(val reflect.Value, fieldName string) interface{} {
+	// TODO: ge -B1 '^\s+om [*]orderedmap' -- openapi3/
+	switch tyname := val.Type().Name(); tyname {
+	case "Paths":
+		if om := val.Interface().(Paths).om; om != nil {
+			if v, ok := (*om).Get(fieldName); ok {
+				return v
+			}
+		}
+
+	case "Callbacks":
+		if om := val.Interface().(Callbacks).om; om != nil {
+			if v, ok := (*om).Get(fieldName); ok {
+				return v
+			}
+		}
+
+	case "Callback":
+		if om := val.Interface().(Callback).om; om != nil {
+			if v, ok := (*om).Get(fieldName); ok {
+				return v
+			}
+		}
+	}
+	return nil
 }
 
 func (loader *Loader) resolveRef(doc *T, ref string, path *url.URL) (*T, string, *url.URL, error) {
