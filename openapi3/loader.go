@@ -970,6 +970,7 @@ func (loader *Loader) resolveCallbackRef(doc *T, component *CallbackRef, documen
 
 	for pair := value.Iter(); pair != nil; pair = pair.Next() {
 		pathItem := pair.Value
+		if err = loader.resolvePathItemRef(doc, pathItem, documentPath); err != nil {
 			return err
 		}
 	}

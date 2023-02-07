@@ -316,7 +316,7 @@ type OAuthFlow struct {
 	AuthorizationURL string                                 `json:"authorizationUrl,omitempty" yaml:"authorizationUrl,omitempty"`
 	TokenURL         string                                 `json:"tokenUrl,omitempty" yaml:"tokenUrl,omitempty"`
 	RefreshURL       string                                 `json:"refreshUrl,omitempty" yaml:"refreshUrl,omitempty"`
-	Scopes           *orderedmap.OrderedMap[string, string] `json:"scopes" yaml:"scopes"` // required
+	Scopes           *orderedmap.OrderedMap[string, string] `json:"scopes" yaml:"scopes"` // required FIXME: opaque type
 }
 
 // MarshalJSON returns the JSON encoding of OAuthFlow.
@@ -364,8 +364,8 @@ func (flow *OAuthFlow) Validate(ctx context.Context, opts ...ValidationOption) e
 		}
 	}
 
-	if v := flow.Scopes; v == nil || v.Len() == 0 {
-		return errors.New("field 'scopes' is empty or missing")
+	if flow.Scopes == nil {
+		return errors.New("field 'scopes' is missing")
 	}
 
 	return validateExtensions(ctx, flow.Extensions)
