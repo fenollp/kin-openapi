@@ -23,9 +23,9 @@ func Uint64Ptr(value uint64) *uint64
 func ValidateIdentifier(value string) error
 func WithValidationOptions(ctx context.Context, opts ...ValidationOption) context.Context
 type AdditionalProperties struct{ ... }
-type Callback map[string]*PathItem
+type Callback struct{ ... }
 type CallbackRef struct{ ... }
-type Callbacks map[string]*CallbackRef
+type Callbacks struct{ ... }
 type Components struct{ ... }
     func NewComponents() Components
 type Contact struct{ ... }
@@ -60,6 +60,8 @@ type Loader struct{ ... }
 type MediaType struct{ ... }
     func NewMediaType() *MediaType
 type MultiError []error
+type NewPathsOption func(*Paths)
+    func WithPath(path string, pathItem *PathItem) NewPathsOption
 type OAuthFlow struct{ ... }
 type OAuthFlows struct{ ... }
 type Operation struct{ ... }
@@ -74,7 +76,9 @@ type Parameters []*ParameterRef
     func NewParameters() Parameters
 type ParametersMap map[string]*ParameterRef
 type PathItem struct{ ... }
-type Paths map[string]*PathItem
+type Paths struct{ ... }
+    func NewPaths(opts ...NewPathsOption) *Paths
+    func NewPathsWithCapacity(cap int) *Paths
 type ReadFromURIFunc func(loader *Loader, url *url.URL) ([]byte, error)
     func ReadFromHTTP(cl *http.Client) ReadFromURIFunc
     func ReadFromURIs(readers ...ReadFromURIFunc) ReadFromURIFunc

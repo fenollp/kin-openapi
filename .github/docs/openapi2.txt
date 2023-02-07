@@ -1,8 +1,13 @@
 type Header struct{ ... }
+type NewPathsOption func(*Paths)
+    func WithPath(path string, pathItem *PathItem) NewPathsOption
 type Operation struct{ ... }
 type Parameter struct{ ... }
 type Parameters []*Parameter
 type PathItem struct{ ... }
+type Paths struct{ ... }
+    func NewPaths(opts ...NewPathsOption) *Paths
+    func NewPathsWithCapacity(cap int) *Paths
 type Response struct{ ... }
 type SecurityRequirements []map[string][]string
 type SecurityScheme struct{ ... }
