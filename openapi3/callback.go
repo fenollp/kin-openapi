@@ -57,6 +57,11 @@ func (pair *callbacksKV) Next() *callbacksKV {
 	return (*callbacksKV)(ompair.Next())
 }
 
+// NewCallbacksWithCapacity builds a callbacks object of the given capacity.
+func NewCallbacksWithCapacity(cap int) *Callbacks {
+	return &Callbacks{om: orderedmap.New[string, *CallbackRef](cap)}
+}
+
 var _ jsonpointer.JSONPointable = (*Callbacks)(nil)
 
 // JSONLookup implements https://pkg.go.dev/github.com/go-openapi/jsonpointer#JSONPointable

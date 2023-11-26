@@ -230,8 +230,8 @@ components:
 	require.NoError(t, err)
 	v, kind, err = ptr.Get(doc)
 	require.NoError(t, err)
-	require.IsType(t, Paths{}, v)
-	require.Equal(t, reflect.TypeOf(Paths{}).Kind(), kind)
+	require.IsType(t, &Paths{}, v)
+	require.Equal(t, reflect.TypeOf(&Paths{}).Kind(), kind)
 
 	ptr, err = jsonpointer.New("/paths/~1pet")
 	require.NoError(t, err)

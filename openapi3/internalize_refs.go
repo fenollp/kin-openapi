@@ -241,13 +241,6 @@ func (doc *T) addCallbackToSpec(c *CallbackRef, refNameResolver RefNameResolver,
 		return false
 	}
 	name := refNameResolver(c.Ref)
-
-	if doc.Components == nil {
-		doc.Components = &Components{}
-	}
-	if doc.Components.Callbacks == nil {
-		doc.Components.Callbacks = &Callbacks{}
-	}
 	c.Ref = "#/components/callbacks/" + name
 	doc.Components.Callbacks.Set(name, &CallbackRef{Value: c.Value})
 	return true
@@ -354,6 +347,13 @@ func (doc *T) derefPaths(paths *orderedmap.OrderedMap[string, *PathItem], refNam
 			if op.RequestBody != nil && op.RequestBody.Value != nil {
 				doc.derefRequestBody(*op.RequestBody.Value, refNameResolver, pathIsExternal || isExternal)
 			}
+
+			if doc.Components == nil {
+				doc.Components = &Components{}
+			}
+			if doc.Components.Callbacks == nil {
+				doc.Components.Callbacks = NewCallbacksWithCapacity(op.Callbacks.Len())
+			}
 			for pair := op.Callbacks.Iter(); pair != nil; pair = pair.Next() {
 				cb := pair.Value
 				isExternal := doc.addCallbackToSpec(cb, refNameResolver, pathIsExternal)
@@ -362,6 +362,7 @@ func (doc *T) derefPaths(paths *orderedmap.OrderedMap[string, *PathItem], refNam
 					doc.derefPaths(cbValue, refNameResolver, pathIsExternal || isExternal)
 				}
 			}
+
 			doc.derefResponses(op.Responses, refNameResolver, pathIsExternal)
 			for _, param := range op.Parameters {
 				isExternal := doc.addParameterToSpec(param, refNameResolver, pathIsExternal)
@@ -425,6 +426,12 @@ func (doc *T) InternalizeRefs(ctx context.Context, refNameResolver func(ref stri
 		doc.derefExamples(components.Examples, refNameResolver, false)
 		doc.derefLinks(components.Links, refNameResolver, false)
 
+		if doc.Components == nil {
+			doc.Components = &Components{}
+		}
+		if doc.Components.Callbacks == nil {
+			doc.Components.Callbacks = NewCallbacksWithCapacity(components.Callbacks.Len())
+		}
 		for pair := components.Callbacks.Iter(); pair != nil; pair = pair.Next() {
 			cb := pair.Value
 			isExternal := doc.addCallbackToSpec(cb, refNameResolver, false)
