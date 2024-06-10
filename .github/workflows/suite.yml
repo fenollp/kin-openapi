@@ -895,7 +895,6 @@ jobs:
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/ssm-contacts/2021-05-03/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/storagegateway/2013-06-30/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/streams.dynamodb/2012-08-10/openapi.yaml
-        APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/sts/2011-06-15/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/waf-regional/2016-11-28/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/waf/2015-08-24/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/amazonaws.com/wafv2/2019-07-29/openapi.yaml

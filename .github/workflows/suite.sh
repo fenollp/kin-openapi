@@ -300,7 +300,6 @@ $APISGURU_DIR/amazonaws.com/snowball/2016-06-30/openapi.yaml
 $APISGURU_DIR/amazonaws.com/ssm-contacts/2021-05-03/openapi.yaml
 $APISGURU_DIR/amazonaws.com/storagegateway/2013-06-30/openapi.yaml
 $APISGURU_DIR/amazonaws.com/streams.dynamodb/2012-08-10/openapi.yaml
-$APISGURU_DIR/amazonaws.com/sts/2011-06-15/openapi.yaml
 $APISGURU_DIR/amazonaws.com/waf-regional/2016-11-28/openapi.yaml
 $APISGURU_DIR/amazonaws.com/waf/2015-08-24/openapi.yaml
 $APISGURU_DIR/amazonaws.com/wafv2/2019-07-29/openapi.yaml
