@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-OAI_COMMIT=${OAI_COMMIT:-157a4c81ae537ef793b2bee368bc00d88b461de8} # On 2022-10-17
+OAI_COMMIT=${OAI_COMMIT:-c3ac262c8e4b41bdc9da187dd6c7846981951ab6} # On 2024-06-10
 OAI_SLUG=OAI-OpenAPI-Specification
 OAI_DIR=$OAI_SLUG-${OAI_COMMIT:0:7}/examples
 
@@ -290,7 +290,6 @@ $APISGURU_DIR/amazonaws.com/elasticfilesystem/2015-02-01/openapi.yaml
 $APISGURU_DIR/amazonaws.com/fsx/2018-03-01/openapi.yaml
 $APISGURU_DIR/amazonaws.com/iam/2010-05-08/openapi.yaml
 $APISGURU_DIR/amazonaws.com/inspector/2016-02-16/openapi.yaml
-$APISGURU_DIR/amazonaws.com/kms/2014-11-01/openapi.yaml
 $APISGURU_DIR/amazonaws.com/lex-models/2017-04-19/openapi.yaml
 $APISGURU_DIR/amazonaws.com/organizations/2016-11-28/openapi.yaml
 $APISGURU_DIR/amazonaws.com/polly/2016-06-10/openapi.yaml
