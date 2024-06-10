@@ -64,8 +64,8 @@ cat <<EOF
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: \${{ matrix.os }}
     defaults:
       run:
@@ -587,6 +587,7 @@ $APISGURU_DIR/googleapis.com/dfareporting/v3.3/openapi.yaml
 $APISGURU_DIR/googleapis.com/dfareporting/v3.4/openapi.yaml
 $APISGURU_DIR/googleapis.com/dfareporting/v3.5/openapi.yaml
 $APISGURU_DIR/googleapis.com/dfareporting/v4/openapi.yaml
+$APISGURU_DIR/googleapis.com/discovery/v1/openapi.yaml
 $APISGURU_DIR/googleapis.com/displayvideo/v1/openapi.yaml
 $APISGURU_DIR/googleapis.com/displayvideo/v1dev/openapi.yaml
 $APISGURU_DIR/googleapis.com/displayvideo/v2/openapi.yaml

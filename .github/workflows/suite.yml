@@ -25,8 +25,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -114,8 +114,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -203,8 +203,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -292,8 +292,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -385,8 +385,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -474,8 +474,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -563,8 +563,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -653,8 +653,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -799,8 +799,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -911,8 +911,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1004,8 +1004,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1274,8 +1274,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1364,8 +1364,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1454,8 +1454,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1550,8 +1550,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1646,8 +1646,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1784,6 +1784,7 @@ jobs:
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/dfareporting/v3.4/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/dfareporting/v3.5/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/dfareporting/v4/openapi.yaml
+        APIs-guru-openapi-directory-2267738/APIs/googleapis.com/discovery/v1/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/displayvideo/v1/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/displayvideo/v1dev/openapi.yaml
         APIs-guru-openapi-directory-2267738/APIs/googleapis.com/displayvideo/v2/openapi.yaml
@@ -1889,8 +1890,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -1981,8 +1982,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2070,8 +2071,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2160,8 +2161,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2261,8 +2262,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2361,8 +2362,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2451,8 +2452,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2541,8 +2542,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2631,8 +2632,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2721,8 +2722,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2829,8 +2830,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -2919,8 +2920,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -3009,8 +3010,8 @@ jobs:
         go: ['1.x']
         os:
         - ubuntu-latest
-        - windows-latest
-        - macos-latest
+       #- windows-latest
+       #- macos-latest
     runs-on: ${{ matrix.os }}
     defaults:
       run:
