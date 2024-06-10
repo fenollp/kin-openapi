@@ -533,7 +533,6 @@ $APISGURU_DIR/googleapis.com/admin/reports_v1/openapi.yaml
 $APISGURU_DIR/googleapis.com/admob/v1beta/openapi.yaml
 $APISGURU_DIR/googleapis.com/adsense/v1.4/openapi.yaml
 $APISGURU_DIR/googleapis.com/adsense/v2/openapi.yaml
-$APISGURU_DIR/googleapis.com/analyticsadmin/v1alpha/openapi.yaml
 $APISGURU_DIR/googleapis.com/appengine/v1/openapi.yaml
 $APISGURU_DIR/googleapis.com/appengine/v1beta/openapi.yaml
 $APISGURU_DIR/googleapis.com/artifactregistry/v1/openapi.yaml
