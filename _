@@ -1,0 +1,121 @@
+* https://github.com/getkin/kin-openapi/issues/791
+     * https://github.com/getkin/kin-openapi/commit/47d329de64b53c80e00aa1ae9aff91df509af418
+* https://github.com/getkin/kin-openapi/pull/728#issuecomment-1468372886
+     * https://github.com/getkin/kin-openapi/pull/870
+
+* https://github.com/getkin/kin-openapi/pull/857
+     * https://github.com/getkin/kin-openapi/pull/867/files
+
+* https://github.com/getkin/kin-openapi/pull/744/files
+
+* https://github.com/getkin/kin-openapi/pull/695
+     * https://github.com/getkin/kin-openapi/compare/master...fenollp:kin-openapi:issue645-bis
+
+* https://github.com/getkin/kin-openapi/pull/888
+
+
+0 5s kin-openapi.git master λ gooo -count=1 -race -covermode=atomic ./...
+SKIP | github.com/getkin/kin-openapi/cmd/validate	[no test files]
+PASS | github.com/getkin/kin-openapi/openapi2 coverage: 72.5% of statements
+PASS | github.com/getkin/kin-openapi/openapi2conv coverage: 83.2% of statements
+     | ==================
+     | WARNING: DATA RACE
+     | Write at 0x00c0003424b0 by goroutine 445:
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors.func2()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:74 +0x19c
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Previous write at 0x00c0003424b0 by goroutine 446:
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors.func2()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:74 +0x19c
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Goroutine 445 (running) created at:
+     |   testing.(*T).Run()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x805
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:71 +0x39b
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Goroutine 446 (finished) created at:
+     |   testing.(*T).Run()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x805
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:71 +0x39b
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | ==================
+     | ==================
+     | WARNING: DATA RACE
+     | Read at 0x00c0003424b0 by goroutine 445:
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors.func2()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:76 +0x1d4
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Previous write at 0x00c0003424b0 by goroutine 447:
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors.func2()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:74 +0x19c
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Goroutine 445 (running) created at:
+     |   testing.(*T).Run()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x805
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:71 +0x39b
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | Goroutine 447 (running) created at:
+     |   testing.(*T).Run()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x805
+     |   github.com/getkin/kin-openapi/openapi3_test.TestOneOf_Warning_Errors()
+     |       /home/pete/wefwefwef/kin-openapi.git/openapi3/issue657_test.go:71 +0x39b
+     |   testing.tRunner()
+     |       /snap/go/current/src/testing/testing.go:1576 +0x216
+     |   testing.(*T).Run.func1()
+     |       /snap/go/current/src/testing/testing.go:1629 +0x47
+     | ==================
+FAIL | OneOf_Warning_Errors (0.00s)
+FAIL |   OneOf_Warning_Errors/valid_value (0.00s)
+     |         testing.go:1446: race detected during execution of test
+FAIL |   OneOf_Warning_Errors/no_valid_value (0.00s)
+     |         testing.go:1446: race detected during execution of test
+FAIL | ExampleObjectValidation (0.00s)
+FAIL |   ExampleObjectValidation/examples_validation_disabled (0.01s)
+FAIL |     ExampleObjectValidation/examples_validation_disabled/example_examples_mutually_exclusive (0.00s)
+     |             testing.go:1446: race detected during execution of test
+     |         testing.go:1446: race detected during execution of test
+FAIL |   ExampleObjectValidation/examples_validation_enabled (0.01s)
+FAIL |     ExampleObjectValidation/examples_validation_enabled/example_examples_mutually_exclusive (0.00s)
+     |             testing.go:1446: race detected during execution of test
+     |         testing.go:1446: race detected during execution of test
+FAIL | ExamplesSchemaValidation (0.00s)
+FAIL |   ExamplesSchemaValidation/examples_validation_disabled (0.06s)
+FAIL |     ExamplesSchemaValidation/examples_validation_disabled/invalid_parameter_examples (0.01s)
+     |             testing.go:1446: race detected during execution of test
+     |         testing.go:1446: race detected during execution of test
+FAIL |   ExamplesSchemaValidation/examples_validation_enabled (0.07s)
+FAIL |     ExamplesSchemaValidation/examples_validation_enabled/invalid_parameter_examples (0.01s)
+     |             testing.go:1446: race detected during execution of test
+     |         testing.go:1446: race detected during execution of test
+     | 	github.com/getkin/kin-openapi/openapi3	coverage: 69.8% of statements
+FAIL | 	github.com/getkin/kin-openapi/openapi3	1.654s
+PASS | github.com/getkin/kin-openapi/openapi3filter coverage: 83.1% of statements
+PASS | github.com/getkin/kin-openapi/openapi3gen coverage: 75.6% of statements
+PASS | github.com/getkin/kin-openapi/routers coverage: 0.0% of statements
+PASS | github.com/getkin/kin-openapi/routers/gorillamux coverage: 95.8% of statements
+PASS | github.com/getkin/kin-openapi/routers/legacy coverage: 68.5% of statements
+PASS | github.com/getkin/kin-openapi/routers/legacy/pathpattern coverage: 76.5% of statements
