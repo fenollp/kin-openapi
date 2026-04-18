@@ -487,7 +487,7 @@ func (schema Schema) MarshalJSON() ([]byte, error) {
 
 // MarshalYAML returns the YAML encoding of Schema.
 func (schema Schema) MarshalYAML() (any, error) {
-	m := make(map[string]any, 36+len(schema.Extensions))
+	m := make(map[string]any, 61+len(schema.Extensions))
 	for k, v := range schema.Extensions {
 		m[k] = v
 	}
@@ -534,15 +534,11 @@ func (schema Schema) MarshalYAML() (any, error) {
 		m["uniqueItems"] = x
 	}
 	// Number-related
-	if schema.ExclusiveMin.IsSet() {
-		if v, _ := schema.ExclusiveMin.MarshalYAML(); v != nil {
-			m["exclusiveMinimum"] = v
-		}
+	if x := schema.ExclusiveMin; x.IsSet() {
+		m["exclusiveMinimum"] = x
 	}
-	if schema.ExclusiveMax.IsSet() {
-		if v, _ := schema.ExclusiveMax.MarshalYAML(); v != nil {
-			m["exclusiveMaximum"] = v
-		}
+	if x := schema.ExclusiveMax; x.IsSet() {
+		m["exclusiveMaximum"] = x
 	}
 	// Properties
 	if x := schema.Nullable; x {
