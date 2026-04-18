@@ -1072,7 +1072,7 @@ func (x *SchemaRef) Validate(ctx context.Context, opts ...ValidationOption) erro
 	}
 
 	if len(extras) != 0 {
-		if !validationOpts.jsonSchema2020ValidationEnabled {
+		if !validationOpts.isOpenAPI31OrLater {
 			return fmt.Errorf("extra sibling fields: %+v", extras)
 		}
 	}
