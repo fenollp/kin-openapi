@@ -1568,6 +1568,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 	}
 
 	if ref := schema.Items; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1586,6 +1589,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 	slices.Sort(properties)
 	for _, name := range properties {
 		ref := schema.Properties[name]
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1601,6 +1607,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		return stack, errors.New("additionalProperties are set to both boolean and schema")
 	}
 	if ref := schema.AdditionalProperties.Schema; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1614,6 +1623,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 
 	// OpenAPI 3.1 / JSON Schema 2020-12 sub-schemas
 	for _, ref := range schema.PrefixItems {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1625,6 +1637,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		}
 	}
 	if ref := schema.Contains; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1637,6 +1652,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 	}
 	for _, name := range componentNames(schema.PatternProperties) {
 		ref := schema.PatternProperties[name]
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1649,6 +1667,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 	}
 	for _, name := range componentNames(schema.DependentSchemas) {
 		ref := schema.DependentSchemas[name]
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1661,6 +1682,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 	}
 	for _, name := range componentNames(schema.Defs) {
 		ref := schema.Defs[name]
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1672,6 +1696,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		}
 	}
 	if ref := schema.PropertyNames; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1686,6 +1713,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		return stack, errors.New("unevaluatedItems is set to both boolean and schema")
 	}
 	if ref := schema.UnevaluatedItems.Schema; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1700,6 +1730,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		return stack, errors.New("unevaluatedProperties is set to both boolean and schema")
 	}
 	if ref := schema.UnevaluatedProperties.Schema; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
@@ -1711,6 +1744,9 @@ func (schema *Schema) validate(ctx context.Context, stack []*Schema) ([]*Schema,
 		}
 	}
 	if ref := schema.ContentSchema; ref != nil {
+		if err := ref.validateExtras(ctx); err != nil {
+			return stack, err
+		}
 		v := ref.Value
 		if v == nil {
 			return stack, foundUnresolvedRef(ref.Ref)
