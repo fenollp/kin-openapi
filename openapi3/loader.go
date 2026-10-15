@@ -487,7 +487,7 @@ func (loader *Loader) resolveComponent(doc *T, ref string, path *url.URL, resolv
 				}
 			}
 
-			if cursor == nil {
+			if cursor == nil || isNilPointer(cursor) {
 				return nil, failedToResolveRefFragmentPart(ref, pathPart)
 			}
 		}
@@ -616,6 +616,15 @@ func readableType(x any) string {
 	default:
 		panic(fmt.Sprintf("unreachable %T", x))
 	}
+}
+
+// isNilPointer reports whether cursor is a non-nil interface holding a nil
+// pointer. A $ref aimed at a null node (`components: {schemas: {A: }}`) drills
+// down to one of those, and it must be reported as unresolved rather than
+// handed to code that dereferences it.
+func isNilPointer(cursor any) bool {
+	value := reflect.ValueOf(cursor)
+	return value.Kind() == reflect.Pointer && value.IsNil()
 }
 
 func drillIntoField(cursor any, fieldName string) (any, error) {
