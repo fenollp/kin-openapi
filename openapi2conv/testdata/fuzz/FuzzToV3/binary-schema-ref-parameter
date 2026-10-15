@@ -1,0 +1,2 @@
+go test fuzz v1
+[]byte("{\"pAths\":{\"\":{\"post\":{\"pArAmeters\":[{\"tYpe\":\"file\"}]}}}}")
