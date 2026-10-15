@@ -185,6 +185,10 @@ func (x *{{ $type.Name }}Ref) validateExtras(ctx context.Context) error {
 // Validate returns an error if {{ $type.Name }}Ref does not comply with the OpenAPI spec.
 func (x *{{ $type.Name }}Ref) Validate(ctx context.Context, opts ...ValidationOption) error {
 	ctx = WithValidationOptions(ctx, opts...)
+	// A null entry in a components map (`links: {a: }`) unmarshals to a nil ref.
+	if x == nil {
+		return newUnresolvedRef("", nil)
+	}
 	if err := x.validateExtras(ctx); err != nil {
 		return err
 	}

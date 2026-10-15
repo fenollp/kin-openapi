@@ -1,0 +1,2 @@
+go test fuzz v1
+[]byte("openApi: A\nComponents:\n  links:\n   0:")

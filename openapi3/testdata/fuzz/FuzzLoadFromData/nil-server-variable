@@ -1,0 +1,2 @@
+go test fuzz v1
+[]byte("openapi: 3.0.0\ninfo: {title: t, version: '1'}\npaths: {}\nservers:\n- url: 'http://x/{v}'\n  variables:\n    v:\n")
